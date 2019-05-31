@@ -13,7 +13,7 @@ font-weight: normal;
  }
 @font-face {
 font-family: "Fontfabric";
-src: url("./assets/fonts/Fontfabric.otf") format("truetype");
+src: url("./components/PhotosOfInsta/fonts/Fontfabric.otf") format("truetype");
 font-style: normal;
 font-weight: normal;
  }
