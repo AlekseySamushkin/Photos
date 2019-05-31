@@ -1,19 +1,19 @@
 // Шрифты
 @font-face {
 font-family: "OpenSans-Regular";
-src: url("./components/shrift/OpenSans-Regular.ttf") format("truetype");
+src: url("./assets/fonts/OpenSans-Regular.ttf") format("truetype");
 font-style: normal;
 font-weight: normal;
  }
  @font-face {
 font-family: "Roboto-condensed";
-src: url("./components/shrift/Roboto-condensed.ttf") format("truetype");
+src: url("./assets/fonts/Roboto-condensed.ttf") format("truetype");
 font-style: normal;
 font-weight: normal;
  }
 @font-face {
 font-family: "Fontfabric";
-src: url("./components/shrift/Fontfabric.otf") format("truetype");
+src: url("./assets/fonts/Fontfabric.otf") format("truetype");
 font-style: normal;
 font-weight: normal;
  }
@@ -32,7 +32,7 @@ h1,h2{
 .imgfon5{
   width: 30%;
   height:100%;
-  background: url("./components/img/fon5.svg");
+  background: url("./components/PhotosOfInsta/img/fon5.svg");
   background-size: 100% 100%;
   float:left;
 }
@@ -47,7 +47,7 @@ h1,h2{
 .separator{
   width:100%;
   height:2.3% ;
-  background: url("./components/img/Razdelitel.svg");
+  background: url("./components/PhotosOfInsta/img/Razdelitel.svg");
   background-size: 100% 100%;
 }
 /* Конец шапки*/
@@ -60,7 +60,7 @@ h1,h2{
 .imgfon1{
   width: 10%;
   height:100%;
-  background: url("./components/img/fon1.svg");
+  background: url("./assets/img/fon1.svg");
   background-size: 100% 100%;
   float:left;
 }
@@ -94,7 +94,7 @@ h1,h2{
   height: 50%;
   margin-top: 40%;
   //border: 1px solid red;
-  background:  url("./components/img/marker.png");
+  background:  url("./assets/img/marker.png");
   background-size: 100% 100%;
   background-position: bottom;
 }
@@ -108,7 +108,7 @@ h1,h2{
   width: 100%;
   height: 40%;
   //border: 1px solid red;
-  background:  url("./components/img/strelka.svg");
+  background:  url("./assets/img/strelka.svg");
   background-size: 100% 100%;
 }
 .form{
@@ -171,7 +171,7 @@ width: 100%;
 .imgfon2{
   width: 9.8%;
   height:100%;
-  background: url("./components/img/fon2.svg");
+  background: url("./assets/img/fon2.svg");
   background-size: 100% 100%;
   float:left;
   //border: 1px solid orange;
@@ -195,7 +195,7 @@ width: 100%;
   .imgfon5{
     width: 30%;
     height:100%;
-    background: url("./components/img/fon5.svg");
+    background: url("./components/PhotosOfInsta/img/fon5.svg");
     background-size: 100% 100%;
     ;
   }
@@ -241,7 +241,7 @@ width: 100%;
   .imgfon5{
     width: 30%;
     height:100%;
-    background: url("./components/img/fon5.svg");
+    background: url("./components/PhotosOfInsta/img/fon5.svg");
     background-size: 100% 100%;
     ;
   }

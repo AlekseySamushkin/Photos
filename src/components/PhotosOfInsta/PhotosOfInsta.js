@@ -1,8 +1,8 @@
 import React, {Component} from "react";
-import  "../App.css";
-import OutputPhoto from "./getPhotoInsta.js";
+import  "../../App.css";
+import GenerationPhotoList from "../GenerationPhotoList/GenerationPhotoList.js";
 
-class Info extends Component {
+class PhotosOfInsta extends Component {
   state = {
     dataOfInsta:undefined,
     responseWithToken:undefined,
@@ -12,7 +12,7 @@ class Info extends Component {
   componentDidMount() {
     this.getPhotoInsta();
   }
-  getPhotoInsta = async(e) => { // getPhotoInsta - функция, делающая запрос и записывающая полученные данные в стейт
+  getPhotoInsta = async(e) => { // getPhotoInsta - функция, делающая запрос и записывающая полученные данные в стейт "start": "set PORT=8080 && react-scripts start",
     fetch(`https://api.instagram.com/v1/users/self/media/recent?access_token=3294255871.a18db21.c3cbd5d04d7f425492ff038775f721d6`) // выполняем запрос на получение фоток инсты
     .then(r=>r.json()) // переводим в json формат
     .then(r=>this.setState({dataOfInsta:r})) // записываем в стейт
@@ -26,9 +26,9 @@ class Info extends Component {
   }
 
   render(){
-    let contentButtonInst = this.state.contentButtonInsta;
-    let photosInsta =  this.state.dataOfInsta !== undefined && this.state.resolutionInsta===true ?
-    <OutputPhoto photos = {this.state.dataOfInsta.data}/> : '' // если в стейте есть данные, то кидаем их в пропсы компонента OutputPhoto
+    const contentButtonInst = this.state.contentButtonInsta;
+    const dataForOutPhotos = this.state.dataOfInsta; // если в стейте есть данные, то кидаем их в пропсы компонента OutputPhoto
+    const resolution=this.state.resolutionInsta;
     return (
       <>
       <div className="title">
@@ -41,9 +41,9 @@ class Info extends Component {
       <div className="button">
         <button onClick={this.resoleveOutputPhotoOfInsta} className="knopka" value="Ввести">{contentButtonInst}</button>
       </div>
-      {photosInsta /* выводим фото с инсты*/}
+      <GenerationPhotoList photos = {dataForOutPhotos} resolution={resolution}/>
       </>
     )
   }
 }
-export default Info;
+export default PhotosOfInsta;

@@ -1,13 +1,11 @@
 import React ,{Component} from "react";
-import Info from "./components/getfriends.js"
+import PhotosOfInsta from "./components/PhotosOfInsta/PhotosOfInsta.js"
 
 class App extends Component {
 
   render(){
     return(
-      <div>
-      <Info/>
-      </div>
+      <PhotosOfInsta/>
     );
   }
 }
