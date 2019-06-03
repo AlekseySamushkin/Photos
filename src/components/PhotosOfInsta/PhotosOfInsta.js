@@ -15,7 +15,10 @@ class PhotosOfInsta extends Component {
   getPhotoInsta = async(e) => { // getPhotoInsta - функция, делающая запрос и записывающая полученные данные в стейт "start": "set PORT=8080 && react-scripts start",
     fetch(`https://api.instagram.com/v1/users/self/media/recent?access_token=3294255871.a18db21.c3cbd5d04d7f425492ff038775f721d6`) // выполняем запрос на получение фоток инсты
     .then(r=>r.json()) // переводим в json формат
-    .then(r=>this.setState({dataOfInsta:r})) // записываем в стейт
+    .then(r=>{
+      // console.log(r);
+      this.setState({dataOfInsta:r})
+      }) // записываем в стейт
     .catch(err=>console.log("error in request Instagram", err)); // ловим ошибки
   }
 
