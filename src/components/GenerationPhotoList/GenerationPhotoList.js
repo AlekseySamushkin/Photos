@@ -23,7 +23,8 @@ class GenerationPhotoList extends Component {
       return true;
     }
     inputDataOfInstaInState = (dataOfInsta) => {
-      if(dataOfInsta.photos !== undefined) this.setState({imgs: dataOfInsta.photos.data.map(item =>
+      console.log("dataOfInsta",dataOfInsta);
+      if(dataOfInsta.photos !== undefined) this.setState({imgs: dataOfInsta.photos.map(item =>
         new Image(item.id,
           item.images.low_resolution.url,
           item.images.standard_resolution.url)
@@ -39,7 +40,7 @@ class GenerationPhotoList extends Component {
       : ""
       // создаем элементы списка. Как ключ используем id каждой фотографии
       return (
-        <div>
+        <div className="photosContainer">
           <h3>Фотографии из Instagram</h3>
           <ul>{result}</ul>
         </div>

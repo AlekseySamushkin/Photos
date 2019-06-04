@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import  "../../App.css";
-import GenerationPhotoList from "../GenerationPhotoList/GenerationPhotoList.js";
-
+//import GenerationPhotoList from "../GenerationPhotoList/GenerationPhotoList.js";
+import FilterHashTag from "../FilterHashTag/FilterHashTag.js";
 class PhotosOfInsta extends Component {
   state = {
     dataOfInsta:undefined,
@@ -31,20 +31,21 @@ class PhotosOfInsta extends Component {
   render(){
     const contentButtonInst = this.state.contentButtonInsta;
     const dataForOutPhotos = this.state.dataOfInsta; // если в стейте есть данные, то кидаем их в пропсы компонента OutputPhoto
+    console.log(dataForOutPhotos);
     const resolution=this.state.resolutionInsta;
     return (
       <>
       <div className="title">
         <div className="imgfon5"></div>
         <div className="headerline">
-          <h1>Фото друзей</h1>
+          <h1>Photos</h1>
           <div className="separator"></div>
         </div>
       </div>
       <div className="button">
         <button onClick={this.resoleveOutputPhotoOfInsta} className="knopka" value="Ввести">{contentButtonInst}</button>
       </div>
-      <GenerationPhotoList photos = {dataForOutPhotos} resolution={resolution}/>
+      <FilterHashTag photos = {dataForOutPhotos} resolution={resolution}/>
       </>
     )
   }
