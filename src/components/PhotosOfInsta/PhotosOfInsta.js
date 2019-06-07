@@ -1,7 +1,19 @@
 import React, {Component} from "react";
 import  "../../App.css";
+import Button from '@material-ui/core/Button';
+import { makeStyles } from '@material-ui/core/styles';
 //import GenerationPhotoList from "../GenerationPhotoList/GenerationPhotoList.js";
 import FilterHashTag from "../FilterHashTag/FilterHashTag.js";
+
+const useStyles = () => makeStyles(theme => ({
+  button: {
+    margin: theme.spacing(1),
+  },
+  input: {
+    display: 'none',
+  },
+}));
+
 class PhotosOfInsta extends Component {
   state = {
     dataOfInsta:undefined,
@@ -28,11 +40,20 @@ class PhotosOfInsta extends Component {
     this.setState({ resolutionInsta:false, contentButtonInsta: 'Вывести фотографии из Instagram'})
   }
 
+  useStyles = makeStyles(theme => ({
+    button: {
+      margin: theme.spacing(1),
+    },
+    input: {
+      display: 'none',
+    },
+  }));
+
   render(){
     const contentButtonInst = this.state.contentButtonInsta;
     const dataForOutPhotos = this.state.dataOfInsta; // если в стейте есть данные, то кидаем их в пропсы компонента OutputPhoto
-    console.log(dataForOutPhotos);
     const resolution=this.state.resolutionInsta;
+    const classes = useStyles();
     return (
       <>
       <div className="title">
@@ -42,9 +63,11 @@ class PhotosOfInsta extends Component {
           <div className="separator"></div>
         </div>
       </div>
-      <div className="button">
-        <button onClick={this.resoleveOutputPhotoOfInsta} className="knopka" value="Ввести">{contentButtonInst}</button>
-      </div>
+        <div className="divbutton">
+          <Button onClick={this.resoleveOutputPhotoOfInsta} variant="contained" className={'knopka'+' '+classes.button} >
+            {contentButtonInst}
+          </Button>
+        </div>
       <FilterHashTag photos = {dataForOutPhotos} resolution={resolution}/>
       </>
     )
