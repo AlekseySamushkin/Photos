@@ -31,7 +31,6 @@ class GenerationPhotoList extends Component {
       return true;
     }
     inputDataOfInstaInState = (dataOfInsta) => {
-      console.log(dataOfInsta)
       if(dataOfInsta.photos !== undefined) this.setState({imgs: dataOfInsta.photos.map(item =>
         new Image(item.id,
           item.created_time,
@@ -46,7 +45,6 @@ class GenerationPhotoList extends Component {
     }
     render(){
       const resolution = this.props.resolution;
-
        const result = this.state.imgs !== undefined && resolution === true ?
        this.state.imgs.map(item =>
         <li onClick={this.changeSizePhoto(item.id)} key={item.id}>

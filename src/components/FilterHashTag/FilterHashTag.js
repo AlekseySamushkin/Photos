@@ -28,7 +28,7 @@ class FilterHashTag extends Component {
       if(e.target.value==='')this.setState({dataOfInstaFiltered:null});
       else await this.setState({dataOfInstaFiltered:this.state.dataOfInsta.photos.data.filter(item=>{
         if(item.tags.length!==0 && item.tags.reduce(
-          (acc,item)=>item.indexOf(e.target.value.replace(/#/g, ''))!==-1 ? ++acc : acc //.replace(/#/g, '')
+          (acc,item)=>item.indexOf(e.target.value.replace(/#/g, ''))!==-1 ? ++acc : acc
           ,0) > 0) return item;
       })})
     }
