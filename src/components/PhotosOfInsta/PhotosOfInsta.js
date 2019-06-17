@@ -20,9 +20,8 @@ class PhotosOfInsta extends Component {
     contentButtonInsta:'Вывести фотографии из Instagram',
   }
   componentDidMount() {
-  //  this.props.state.dispatchUpdate();
+    this.props.state.dispatchUpdate();
   }
-
   resoleveOutputPhotoOfInsta = () => {
     // если разрешение true, то меняем его на false и меняем контент кнопки
     this.state.resolutionInsta === false ? this.setState({ resolutionInsta:true, contentButtonInsta:'Скрыть фотографии из Instagram' }):
@@ -41,8 +40,6 @@ class PhotosOfInsta extends Component {
     const contentButtonInst = this.state.contentButtonInsta;
     const dataForOutPhotos1 =this.props.state;
     const resolution=this.state.resolutionInsta;
-    console.log(dataForOutPhotos1);
-    //const classes = useStyles();
     return (
       <>
       <div className="title">
@@ -57,7 +54,9 @@ class PhotosOfInsta extends Component {
             {contentButtonInst}
           </Button>
         </div>
-      <FilterHashTag photos = {dataForOutPhotos1} callback={this.props.state.dispatchFilterHashTag} resolution={resolution}/>
+      {dataForOutPhotos1.state.data.maindata===null ? <p>Загрузка данных...</p> :
+        <FilterHashTag photos = {dataForOutPhotos1} callback={this.props.state.dispatchFilterHashTag} resolution={resolution}/>
+      }
       </>
     )
   }
