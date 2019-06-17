@@ -9,41 +9,51 @@ import  "../../App.css";
 3. Если поле фильтра пустое- вытащить все фотки,
 иначе то вытащить те, которые прошли через фильтр
 */
-// Дописать обработку введенных данных!!!
 
 class FilterHashTag extends Component {
     state = {
       dataOfInsta:undefined,
       dataOfInstaFiltered:null,
-      currentHashTag:'',// здесь будет текущий хэштег, который мы вводим
     }
     componentWillReceiveProps(nextProps) {
       this.inputDataOfHashTag(nextProps);
       return true;
     }
     inputDataOfHashTag = (data) => {
-      data && this.setState({dataOfInsta:data});
+      data && this.setState({dataOfInsta:data.photos.state.data.maindata});
     }
     changeValueHashTag = async(e) => {
-      if(e.target.value==='')this.setState({dataOfInstaFiltered:null});
-      else await this.setState({dataOfInstaFiltered:this.state.dataOfInsta.photos.data.filter(item=>{
-        if(item.tags.length!==0 && item.tags.reduce(
-          (acc,item)=>item.indexOf(e.target.value.replace(/#/g, ''))!==-1 ? ++acc : acc
-          ,0) > 0) return item;
-      })})
+      // добавление отфильтрованных данных в store.
+      let filtered;
+      if(e.target.value!==''&& e.target.value!==null && this.state.dataOfInsta!==undefined){
+        filtered=this.state.dataOfInsta.data.filter(item=>{
+         if(item.tags.length!==0 && item.tags.reduce(
+           (acc,item)=>item.indexOf(e.target.value.replace(/#/g, ''))!==-1 ? ++acc : acc
+           ,0) > 0) return item;
+         else return ""; 
+       })
+       await this.props.callback(filtered);
+     }
+     else this.props.callback(null);
+     //this.setState({dataOfInstaFiltered:filtered}); // для update. Заменить костыль
+      // добавление отфильтрованных данных в state.
+      // if(e.target.value==='' ||this.state.dataOfInsta===undefined) this.setState({dataOfInstaFiltered:null});
+      // else await this.setState({dataOfInstaFiltered:this.state.dataOfInsta.data.filter(item=>{
+      //   if(item.tags.length!==0 && item.tags.reduce(
+      //     (acc,item)=>item.indexOf(e.target.value.replace(/#/g, ''))!==-1 ? ++acc : acc
+      //     ,0) > 0) return item;
+      // })})
     }
     render(){
-      const currentHashTag = this.state.currentHashTag;
-      const notFilteredPhotos = this.props.photos!==undefined ? this.props.photos.data: this.props.photos;
-      const filteredPhotos = this.state.dataOfInstaFiltered;
+      const notFilteredPhotos = this.props.photos.state.data.maindata!==undefined ? this.props.photos.state.data.maindata.data: this.props.photos.state.data;
+      const filteredPhotos = this.props.photos.state.data.filteredData;///store.getState().data.filteredData;
       const resolution = this.props.resolution;
-
       return (
         <>
           <div className="divinput">
             {CustomizedInputBase(this.changeValueHashTag)}
           </div>
-          <GenerationPhotoList photos = {filteredPhotos===null ? notFilteredPhotos : filteredPhotos} resolution={resolution}/>
+          <GenerationPhotoList photos = {filteredPhotos===undefined || filteredPhotos===null ? notFilteredPhotos : filteredPhotos} resolution={resolution}/>
         </>
       )
     }

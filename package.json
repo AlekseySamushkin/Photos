@@ -13,6 +13,8 @@
     "react-scripts": "2.1.8",
     "react-vk": "^5.0.2",
     "redux": "^4.0.1",
+    "redux-devtools-extension": "^2.13.8",
+    "redux-thunk": "^2.3.0",
     "yarn": "^1.16.0"
   },
   "scripts": {

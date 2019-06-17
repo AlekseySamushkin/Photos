@@ -56,7 +56,7 @@ class GenerationPhotoList extends Component {
             location={item.location}
           />
         </li>)
-      : ""
+      : "";
       // создаем элементы списка. Как ключ используем id каждой фотографии
       return (
         <div className="photosContainer">
