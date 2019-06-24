@@ -1,10 +1,24 @@
-import React, {Component} from "react";
 import  "../../App.css";
+//import { makeStyles } from '@material-ui/core/styles';
+import React from "react";
 import Button from '@material-ui/core/Button';
-import { makeStyles } from '@material-ui/core/styles';
 import FilterHashTag from "../FilterHashTag/FilterHashTag.js";
+import {connect} from 'react-redux';
+import {DELETE} from '../../constants';
+import {getPhotoInsta} from '../../actions/action';
 
-// const useStyles = () => makeStyles(theme => ({
+/*
+Если часто отправлять запросы, то вылетает ошибка 503
+
+Данные Store, которые использует компонент:
+1.state.data.maindata
+2. state.data.error
+Экшены, которые вызываются в этом компоненте:
+1. dispatchDeleteMainData (DELETE)
+2. dispatchUpdate (UPDATE)
+3.
+*/
+// const useStyles = makeStyles(theme => ({
 //   button: {
 //     margin: theme.spacing(1),
 //   },
@@ -12,34 +26,12 @@ import FilterHashTag from "../FilterHashTag/FilterHashTag.js";
 //     display: 'none',
 //   },
 // }));
-class PhotosOfInsta extends Component {
-  state = {
-    dataOfInsta:undefined,
-    responseWithToken:undefined,
-    resolutionInsta:false,
-    contentButtonInsta:'Вывести фотографии из Instagram',
+const PhotosOfInsta = (props) => {
+  const resoleveOutputPhotoOfInsta = () => {
+    props.maindata === null ? props.dispatchUpdate():props.dispatchDeleteMainData();
   }
-  componentDidMount() {
-    this.props.state.dispatchUpdate();
-  }
-  resoleveOutputPhotoOfInsta = () => {
-    // если разрешение true, то меняем его на false и меняем контент кнопки
-    this.state.resolutionInsta === false ? this.setState({ resolutionInsta:true, contentButtonInsta:'Скрыть фотографии из Instagram' }):
-    this.setState({ resolutionInsta:false, contentButtonInsta: 'Вывести фотографии из Instagram'})
-  }
-  useStyles = makeStyles(theme => ({
-    button: {
-      margin: theme.spacing(1),
-    },
-    input: {
-      display: 'none',
-    },
-  }));
-
-  render(){
-    const contentButtonInst = this.state.contentButtonInsta;
-    const dataForOutPhotos1 =this.props.state;
-    const resolution=this.state.resolutionInsta;
+    const contentButtonInst = props.maindata===null ? "Вывести фотографии из Instagram" : "Скрыть фотографии из Instagram";
+    const error=props.error;
     return (
       <>
       <div className="title">
@@ -50,15 +42,22 @@ class PhotosOfInsta extends Component {
         </div>
       </div>
         <div className="divbutton">
-          <Button onClick={this.resoleveOutputPhotoOfInsta} variant="contained" className={'knopka'} >
+          <Button onClick={resoleveOutputPhotoOfInsta} variant="contained" className={'mainButton'} >
             {contentButtonInst}
           </Button>
         </div>
-      {dataForOutPhotos1.state.data.maindata===null ? <p>Загрузка данных...</p> :
-        <FilterHashTag photos = {dataForOutPhotos1} callback={this.props.state.dispatchFilterHashTag} resolution={resolution}/>
+      { error!==null ? <p>Извините, произошла ошибка при загрузке данных...</p> :
+        props.maindata!==null ?
+        <FilterHashTag />
+        : ""
       }
       </>
     )
-  }
 }
-export default PhotosOfInsta;
+export default connect( // переделать контент
+  state=>({maindata:state.data.maindata,error:state.data.error}),
+  dispatch=>({
+     dispatchUpdate: () => dispatch(getPhotoInsta()),
+     dispatchDeleteMainData: () => dispatch({type:DELETE}),
+  })
+)(PhotosOfInsta);

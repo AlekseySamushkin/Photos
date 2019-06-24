@@ -1,62 +1,28 @@
-import React, {Component} from "react";
+import React from "react";
 import RecipeReviewCard from "../border/border.js";
-
-
-function Image(id, created_time, full_name, profile_picture, lowResolution, standardResolution,users_in_photo,location) {
-  this.id = id;
-  this.created_time=created_time;
-  this.full_name=full_name;
-  this.profile_picture=profile_picture;
-  this.lowResolution = lowResolution;
-  this.standardResolution = standardResolution;
-  this.users_in_photo=users_in_photo;
-  this.location=location;
-  this.bigImg = false;
-}
-
-class GenerationPhotoList extends Component {
-    state = {
-      imgs:undefined,
-    }
-
-    changeSizePhoto = (id) => () => {
-      this.setState({imgs:this.state.imgs.map(item=>{
-          if (item.id===id) item.bigImg === false ? item.bigImg = true: item.bigImg = false;
-          return item;
-        })
-      })
-    }
-    componentWillReceiveProps(nextProps) {
-      this.inputDataOfInstaInState(nextProps);
-      return true;
-    }
-    inputDataOfInstaInState = (dataOfInsta) => {
-      if(dataOfInsta.photos !== undefined) this.setState({imgs: dataOfInsta.photos.map(item =>
-        new Image(item.id,
-          item.created_time,
-          item.user.full_name,
-          item.user.profile_picture,
-          item.images.low_resolution.url,
-          item.images.standard_resolution.url,
-          item.users_in_photo,
-          item.location
-        )
-      )});
-    }
-    render(){
-      const resolution = this.props.resolution;
-       const result = this.state.imgs !== undefined && resolution === true ?
-       this.state.imgs.map(item =>
-        <li onClick={this.changeSizePhoto(item.id)} key={item.id}>
+import {connect} from 'react-redux';
+import {changeSizePhoto} from '../../actions/action';
+import {CHANGESIZEPHOTO} from '../../constants';
+/*
+Данные Store, которые использует компонент:
+1. state
+Экшены, которые вызываются в этом компоненте:
+1. changeSizePhoto (CHANGESIZEPHOTO)
+*/
+const GenerationPhotoList =(props)=> {
+  console.log(props.photos)
+       const result = //props.photos !== undefined ?
+       props.photos.map(item => {
+        return <li key={item.id} onClick={()=>props.changeSizePhoto(item.id,props.state)}>
           <RecipeReviewCard
             alt={item.id} created_time={item.created_time}
             full_name={item.full_name} users_in_photo={item.users_in_photo}
-            profile_picture={item.profile_picture} sizeBig={item.bigImg}
-            src={item.bigImg === false ? item.lowResolution: item.standardResolution }
+            profile_picture={item.user.profile_picture} size={item.images.size}
+            src={item.images.size === 'small' ? item.images.low_resolution.url: item.images.standard_resolution.url }
             location={item.location}
           />
-        </li>)
-      : "";
+        </li>})
+      //: "";
       // создаем элементы списка. Как ключ используем id каждой фотографии
       return (
         <div className="photosContainer">
@@ -64,6 +30,12 @@ class GenerationPhotoList extends Component {
           <ul>{result}</ul>
         </div>
       )// выводим получившийся список
-    }
+
 }
-export default GenerationPhotoList;
+
+export default connect( // переделать контент
+  state=>({state}),
+  dispatch=>({
+     changeSizePhoto: (id,state)=> dispatch({type: CHANGESIZEPHOTO,obj:changeSizePhoto(id,state)}),
+  })
+)(GenerationPhotoList);

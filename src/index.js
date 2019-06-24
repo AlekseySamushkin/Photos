@@ -1,13 +1,13 @@
+import './index.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
+import PhotosOfInsta from "./components/PhotosOfInsta/PhotosOfInsta.js";
 import {Provider} from 'react-redux';
 import store from './store';
 
 ReactDOM.render(
   (<Provider store={store}>
-    <App/>
+    <PhotosOfInsta/>
   </Provider>
 )
 , document.getElementById('root'));
