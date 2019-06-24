@@ -26,7 +26,7 @@ const PhotosOfInsta = (props) => {
     return (
       <>
       <div className="title">
-        <div className="imgfon5"></div>
+        <div className="imgbackground5"></div>
         <div className="headerline">
           <h1>Photos</h1>
           <div className="separator"></div>
@@ -40,8 +40,7 @@ const PhotosOfInsta = (props) => {
       { props.error!==null ? <p>Извините, произошла ошибка при загрузке данных...</p> : // если есть ошибки, выводим надпись
         props.maindata!==null ? // если данные получены, то выводим компонент FilterHashTag.
         <FilterHashTag />
-        : ""
-      }
+        : ""}
       </>
     )
 }

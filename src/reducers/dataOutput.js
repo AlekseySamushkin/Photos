@@ -1,4 +1,4 @@
-import { UPDATE,FILTER_HASH_TAG,ERROR,DELETE,CHANGESIZEPHOTO } from '../constants';
+import { UPDATE,FILTER_HASH_TAG,ERROR,DELETE } from '../constants';
 
 //import dataJson from "../dataTest.json";
 
@@ -18,15 +18,13 @@ const data = (state = INITIAL, { type,obj }) => { // пробрасываем з
     case UPDATE :
       copyState.maindata = obj;
       return copyState;
-    case CHANGESIZEPHOTO :
-      copyState.maindata = obj;
-      return copyState;
     case ERROR :
       copyState.error = obj;
       return copyState;
     case DELETE :
       copyState.maindata = null;
       copyState.filteredData = null;
+      copyState.error = null;
       return copyState;
     default:
       return state;

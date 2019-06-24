@@ -2,7 +2,7 @@ import React from "react";
 import RecipeReviewCard from "../border/border";
 import {connect} from 'react-redux';
 import {changeSizePhoto} from '../../actions/action';
-import {CHANGESIZEPHOTO} from '../../constants';
+import {UPDATE} from '../../constants';
 /*
 Данные Store, которые использует компонент:
 1. state
@@ -34,6 +34,6 @@ const GenerationPhotoList = (props) => {
 export default connect( // переделать контент
   state=>({state}),
   dispatch=>({
-     changeSizePhoto: (id,state)=> dispatch({type: CHANGESIZEPHOTO,obj:changeSizePhoto(id,state)}),
+     changeSizePhoto: (id,state)=> dispatch({type: UPDATE,obj:changeSizePhoto(id,state)}),
   })
 )(GenerationPhotoList);
