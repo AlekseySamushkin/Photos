@@ -2,15 +2,15 @@ import { UPDATE,FILTER_HASH_TAG,ERROR,DELETE,CHANGESIZEPHOTO } from '../constant
 
 //import dataJson from "../dataTest.json";
 
-const INITIAL=
+const INITIAL= // начальное значение стора
 {
   maindata:null,
   filteredData:null,
   error:null,
 };
 
-const data = (state = INITIAL, { type,obj }) => {
-  let copyState= Object.assign({}, state);
+const data = (state = INITIAL, { type,obj }) => { // пробрасываем значение стора и экшен в деструктуризированном виде.
+  let copyState= Object.assign({}, state); // делаем копию, чтобы избежать мутации.
   switch (type) {
     case FILTER_HASH_TAG :
       copyState.filteredData = obj;
@@ -26,7 +26,7 @@ const data = (state = INITIAL, { type,obj }) => {
       return copyState;
     case DELETE :
       copyState.maindata = null;
-      copyState.sizeOfPhotos = null;
+      copyState.filteredData = null;
       return copyState;
     default:
       return state;

@@ -1,8 +1,7 @@
 import  "../../App.css";
-//import { makeStyles } from '@material-ui/core/styles';
-import React from "react";
 import Button from '@material-ui/core/Button';
-import FilterHashTag from "../FilterHashTag/FilterHashTag.js";
+import React from "react";
+import FilterHashTag from "../FilterHashTag/FilterHashTag";
 import {connect} from 'react-redux';
 import {DELETE} from '../../constants';
 import {getPhotoInsta} from '../../actions/action';
@@ -16,22 +15,14 @@ import {getPhotoInsta} from '../../actions/action';
 Экшены, которые вызываются в этом компоненте:
 1. dispatchDeleteMainData (DELETE)
 2. dispatchUpdate (UPDATE)
-3.
 */
-// const useStyles = makeStyles(theme => ({
-//   button: {
-//     margin: theme.spacing(1),
-//   },
-//   input: {
-//     display: 'none',
-//   },
-// }));
+
 const PhotosOfInsta = (props) => {
-  const resoleveOutputPhotoOfInsta = () => {
+  const resoleveOutputPhotoOfInsta = () => { // функция добавляющая или удаляющая данные в maindata
     props.maindata === null ? props.dispatchUpdate():props.dispatchDeleteMainData();
   }
-    const contentButtonInst = props.maindata===null ? "Вывести фотографии из Instagram" : "Скрыть фотографии из Instagram";
-    const error=props.error;
+    const contentButtonInst = props.maindata===null ?
+     "Вывести фотографии из Instagram" : "Скрыть фотографии из Instagram"; // содержание кнопки в зависимости от того получены данные или нет
     return (
       <>
       <div className="title">
@@ -46,16 +37,19 @@ const PhotosOfInsta = (props) => {
             {contentButtonInst}
           </Button>
         </div>
-      { error!==null ? <p>Извините, произошла ошибка при загрузке данных...</p> :
-        props.maindata!==null ?
+      { props.error!==null ? <p>Извините, произошла ошибка при загрузке данных...</p> : // если есть ошибки, выводим надпись
+        props.maindata!==null ? // если данные получены, то выводим компонент FilterHashTag.
         <FilterHashTag />
         : ""
       }
       </>
     )
 }
-export default connect( // переделать контент
-  state=>({maindata:state.data.maindata,error:state.data.error}),
+export default connect( // бросаем в пропсы только нужные для конкретного компонента данные и экшены.
+  state=>({
+    maindata:state.data.maindata,
+    error:state.data.error
+  }),
   dispatch=>({
      dispatchUpdate: () => dispatch(getPhotoInsta()),
      dispatchDeleteMainData: () => dispatch({type:DELETE}),

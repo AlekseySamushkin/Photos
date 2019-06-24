@@ -1,5 +1,5 @@
 import React from "react";
-import RecipeReviewCard from "../border/border.js";
+import RecipeReviewCard from "../border/border";
 import {connect} from 'react-redux';
 import {changeSizePhoto} from '../../actions/action';
 import {CHANGESIZEPHOTO} from '../../constants';
@@ -8,11 +8,10 @@ import {CHANGESIZEPHOTO} from '../../constants';
 1. state
 Экшены, которые вызываются в этом компоненте:
 1. changeSizePhoto (CHANGESIZEPHOTO)
+В компонент пробрасывается отфильтрованный, либо не отфильтрованный варианты фотографий
 */
-const GenerationPhotoList =(props)=> {
-  console.log(props.photos)
-       const result = //props.photos !== undefined ?
-       props.photos.map(item => {
+const GenerationPhotoList = (props) => {
+       const result =props.photos.map(item => {
         return <li key={item.id} onClick={()=>props.changeSizePhoto(item.id,props.state)}>
           <RecipeReviewCard
             alt={item.id} created_time={item.created_time}
@@ -22,7 +21,6 @@ const GenerationPhotoList =(props)=> {
             location={item.location}
           />
         </li>})
-      //: "";
       // создаем элементы списка. Как ключ используем id каждой фотографии
       return (
         <div className="photosContainer">

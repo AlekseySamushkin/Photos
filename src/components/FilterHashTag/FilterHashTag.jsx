@@ -1,21 +1,20 @@
 import  "../../App.css";
 import React from "react";
-import GenerationPhotoList from "../GenerationPhotoList/GenerationPhotoList.js";
-import CustomizedInputBase from '../Input/Input.js'
+import GenerationPhotoList from "../GenerationPhotoList/GenerationPhotoList";
+import CustomizedInputBase from '../Input/Input'
 import {connect} from 'react-redux';
 import {FILTER_HASH_TAG} from '../../constants';
 /*
 Данные Store, которые использует компонент:
 1. state.data.maindata
 2. state.data.filteredData
-3.
 Экшены, которые вызываются в этом компоненте:
 1.dispatchFilterHashTag
 */
 
 const FilterHashTag = (props) => {
-      const changeValueHashTag = async(e) => {
-        // добавление отфильтрованных данных в store.
+
+      const changeValueHashTag = async(e) => { // функция просматривает значение Input'a и в зависимости от него изменяет filterdata с помощью соответствующего экшена.
         let filtered;
         if(e.target.value!==''&& e.target.value!==null && props.maindata!==undefined){
           filtered=props.maindata.filter(item=>{
@@ -28,23 +27,23 @@ const FilterHashTag = (props) => {
        }
        else props.dispatchFilterHashTag(null);
       }
-      const notFilteredPhotos = props.maindata!==undefined ? props.maindata: props.state.data;
-      const filteredPhotos = props.filteredData;
       return (
         <>
           <div className="divinput">
             {CustomizedInputBase(changeValueHashTag)}
           </div>
           <GenerationPhotoList
-           photos = {filteredPhotos===undefined || filteredPhotos===null ? notFilteredPhotos : filteredPhotos}
-
+           photos = {props.filteredData===undefined || props.filteredData===null ? props.maindata : props.filteredData}
           />
         </>
       )
 }
 
 export default connect(
-  state=>({maindata:state.data.maindata,filteredData:state.data.filteredData}),
+  state=>({
+    maindata:state.data.maindata,
+    filteredData:state.data.filteredData
+  }),
   dispatch=>({
      dispatchFilterHashTag: (obj) => dispatch({type:FILTER_HASH_TAG , obj}),
   })
