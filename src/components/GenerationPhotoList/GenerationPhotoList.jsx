@@ -8,17 +8,17 @@ import {UPDATE} from '../../constants';
 1. state
 Экшены, которые вызываются в этом компоненте:
 1. changeSizePhoto (CHANGESIZEPHOTO)
-В компонент пробрасывается отфильтрованный, либо не отфильтрованный варианты фотографий
+В компонент пробрасывается отфильтрованный, либо не отфильтрованный списки фотографий
 */
 const GenerationPhotoList = (props) => {
        const result =props.photos.map(item => {
         return <li key={item.id} onClick={()=>props.changeSizePhoto(item.id,props.state)}>
           <RecipeReviewCard
             alt={item.id} created_time={item.created_time}
-            full_name={item.full_name} users_in_photo={item.users_in_photo}
+            full_name={item.user.full_name} users_in_photo={item.users_in_photo}
             profile_picture={item.user.profile_picture} size={item.images.size}
             src={item.images.size === 'small' ? item.images.low_resolution.url: item.images.standard_resolution.url }
-            location={item.location}
+            location={item.location} likes={item.likes.count} comments={item.comments.count}
           />
         </li>})
       // создаем элементы списка. Как ключ используем id каждой фотографии
